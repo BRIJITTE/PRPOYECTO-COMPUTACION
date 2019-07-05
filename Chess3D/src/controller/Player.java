@@ -13,8 +13,7 @@ import model.pieces.King;
  * and the general direction that the pawns travel. The player also holds
  * a reference to the opposing player for easy access.
  * 
- * 
- * @author Nicholas
+ *
  *
  */
 public class Player {
