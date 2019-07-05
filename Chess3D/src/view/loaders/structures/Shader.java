@@ -13,8 +13,6 @@ import javax.media.opengl.GL2;
  * 
  * Currently this is not used
  * 
- * @author Nicholas
- *
  */
 public class Shader {
 
