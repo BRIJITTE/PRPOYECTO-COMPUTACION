@@ -17,9 +17,6 @@ import controller.Player;
  * Abstract board class that is responsible for all the operations
  * on a chess board. The board is responsible for determining if
  * moves are valid, as well as rendering the whole scene.
- * 
- * @author Nicholas
- *
  */
 public abstract class Board {
 	
