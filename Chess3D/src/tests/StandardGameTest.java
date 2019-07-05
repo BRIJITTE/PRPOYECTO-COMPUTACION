@@ -7,8 +7,6 @@ import controller.GameLoop;
 /**
  * Simulates a StandardGame with the GUI
  * 
- * @author Nicholas
- *
  */
 public class StandardGameTest {
 
