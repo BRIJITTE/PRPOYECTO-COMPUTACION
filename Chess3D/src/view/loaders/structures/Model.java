@@ -11,8 +11,6 @@ import view.loaders.AssetLoader;
  * a reference to an opengl buffer, and the name of the texture that should be bound before
  * rendering.
  * 
- * @author Nicholas
- *
  */
 public class Model {
 
