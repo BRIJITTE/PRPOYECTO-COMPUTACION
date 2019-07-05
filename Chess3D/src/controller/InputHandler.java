@@ -18,8 +18,6 @@ import view.Renderer;
  * within the chess frame. The methods interprets the clicks, and
  * passes along commands to the GameLoop or Renderer
  * 
- * @author Nicholas
- *
  */
 public class InputHandler implements KeyListener, MouseListener {
 
