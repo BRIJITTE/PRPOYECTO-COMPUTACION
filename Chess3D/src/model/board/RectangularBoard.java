@@ -23,8 +23,6 @@ import controller.Player;
  * array to represent the data. The would be the Board to use for a standard
  * game of chess (with size (8, 8), or by using the default constructor). 
  * 
- * @author Nicholas
- *
  */
 public class RectangularBoard extends Board {
 
