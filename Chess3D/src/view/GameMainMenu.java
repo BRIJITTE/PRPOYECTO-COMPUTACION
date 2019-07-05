@@ -16,8 +16,6 @@ import controller.Player;
  * with 3 options: restart, forfeit black, forfeit white.
  * All options trigger a confirm dialog as well.
  * 
- * @author Nicholas
- *
  */
 public class GameMainMenu extends JMenuBar implements ActionListener {
 
