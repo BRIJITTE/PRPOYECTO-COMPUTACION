@@ -15,9 +15,6 @@ import controller.InputHandler;
  * input manager, and gameloop. To actually begin the game
  * you must call, getGameController().setupNewGame() with
  * the game mode you wish to play
- * 
- * @author Nicholas
- *
  */
 public class GameFrame extends JFrame {
 
