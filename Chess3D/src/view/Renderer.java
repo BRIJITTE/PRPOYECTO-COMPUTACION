@@ -19,9 +19,6 @@ import controller.GameLoop;
  * display(), which are each defined here. Any calls to repaint window, will
  * eventually lead to a display() call defined here
  * 
- * 
- * @author Nicholas
- *
  */
 public class Renderer implements GLEventListener {
 
