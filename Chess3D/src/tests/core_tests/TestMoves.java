@@ -25,8 +25,6 @@ import controller.Player;
  * These tests test the functionality of the Board, and the various 
  * chess pieces.
  * 
- * @author Nicholas
- *
  */
 public class TestMoves {
 
