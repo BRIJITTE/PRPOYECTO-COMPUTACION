@@ -22,9 +22,7 @@ import controller.util.Animation;
  * implements the maintaining running loop for this application, and has basic functions
  * that control chess gameflow, such as execute move, cancel game, and setupNewGame
  * 
- * @author Nicholas
- *
- */
+
 public class GameLoop implements Runnable {
 	
 	/**
