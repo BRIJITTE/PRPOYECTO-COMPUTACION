@@ -13,8 +13,6 @@ import controller.util.Animation.Animatable;
  * location of the camera is defined in spherical coordinates, where there
  * is a horizontal rotation from [0, 2*PI] and a vertical rotation [0, PI/2]
  * 
- * @author Nicholas
- *
  */
 public class GameCamera implements Animatable {
 
