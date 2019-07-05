@@ -4,8 +4,6 @@ package controller.util;
  * Defines a basic linear interpolation animation, which is updated
  * by a delta_t in the gameloop. This class works by calling
  * the setValue() method of the Animatable object passed in
- * 
- * @author Nicholas
  *
  */
 public class Animation implements Comparable<Animation> {
