@@ -13,8 +13,6 @@ import controller.Player;
  * important (such as in suicide) so the option to validate check
  * must be passed in, which is used to determine if the king can move into
  * check situation
- * 
- * @author Nicholas
  *
  */
 public class King extends ChessPiece {
