@@ -27,8 +27,6 @@ import controller.Player;
  * Checks various check/checkmate scenarios
  * 
  * 
- * @author Nicholas
- *
  */
 public class TestCheckSenerios {
 
