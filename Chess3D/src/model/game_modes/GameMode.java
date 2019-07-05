@@ -9,9 +9,6 @@ import controller.Player;
  * 
  * are called by the GameLoop class.
  * 
- * 
- * @author Nicholas
- *
  */
 public interface GameMode {
 
