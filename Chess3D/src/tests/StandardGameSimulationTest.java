@@ -13,8 +13,6 @@ import controller.GameLoop;
  * Simulates a (short) chess game that results in black checkmated.
  * Demonstrates the GUI.
  * 
- * @author Nicholas
- *
  */
 public class StandardGameSimulationTest {
 	
