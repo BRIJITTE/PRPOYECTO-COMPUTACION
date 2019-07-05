@@ -12,9 +12,6 @@ import controller.Player;
  * Represents a Pawn. Pawn moving positions are taken
  * directly from the Board object which is responsible
  * for providing the moving directions of a pawn
- * 
- * @author Nicholas
- *
  */
 public class Pawn extends ChessPiece {
 
