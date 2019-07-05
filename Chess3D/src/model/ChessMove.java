@@ -6,9 +6,6 @@ import java.awt.Point;
  * Basic data object for holding a possible chess move. A chess
  * move is made up of 2 pieces of data, the piece that is moving, 
  * and the location the piece will move to
- * 
- * 
- * @author Nicholas
  *
  */
 public class ChessMove {
