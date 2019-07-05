@@ -14,8 +14,6 @@ import controller.util.Animation.Animatable;
 /**
  * Basic template for any ChessPiece, which provides the basic
  * methods to move the Piece.
- * 
- * @author Nicholas
  *
  */
 public abstract class ChessPiece implements Animatable {
