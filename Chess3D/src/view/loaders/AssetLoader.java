@@ -22,8 +22,6 @@ import com.jogamp.opengl.util.texture.TextureIO;
 /**
  * Utility class used for loading the required resources for this project including 
  * textures, shaders, and models. This class uses the Singleton design pattern
- * @author Nicholas
- *
  */
 public class AssetLoader {
 
