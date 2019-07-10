@@ -12,16 +12,11 @@ import controller.GameLoop;
 import controller.Player;
 
 /**
- * Menu bar for the Chess game. Contains one drop down menu
- * with 3 options: restart, forfeit black, forfeit white.
- * All options trigger a confirm dialog as well.
- * 
+ *Barra de menú para el juego de ajedrez. 
  */
 public class GameMainMenu extends JMenuBar implements ActionListener {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -2675401737436931613L;
 
 	private GameLoop gameController;
@@ -47,19 +42,19 @@ public class GameMainMenu extends JMenuBar implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == restart) { //if restart was selected
+		if (arg0.getSource() == restart) { //si se seleccionó reinicio
 			Player p1 = gameController.getPlayer1();
 			int result = JOptionPane.showConfirmDialog(gameFrame, 
 					"Are you sure you wish to restart, " + p1.getPlayerName() + "?",
 					"Restart?",
 					JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.OK_OPTION) { //player 1 agreed
+			if (result == JOptionPane.OK_OPTION) { //jugador 1 estuvo de acuerdo
 				Player p2 = gameController.getPlayer2();
 				result = JOptionPane.showConfirmDialog(gameFrame, 
 					"Are you sure you wish to restart, " + p2.getPlayerName() + "?",
 					"Restart?",
 					JOptionPane.YES_NO_OPTION);
-				if (result == JOptionPane.YES_OPTION) //player 2 agreed
+				if (result == JOptionPane.YES_OPTION) //jugador 2 estuvo de acuerdo
 					gameController.cancelGame(null);
 			}		
 		} else if (arg0.getSource() == forfietWhite || arg0.getSource() == forfietBlack) {

@@ -8,11 +8,10 @@ import javax.vecmath.Vector3f;
 import controller.util.Animation.Animatable;
 
 /**
- * This class represents a camera (or eye) in 3D space. The eye
- * is always looking at point 0,0,0 (the center of the board). An the 
- * location of the camera is defined in spherical coordinates, where there
- * is a horizontal rotation from [0, 2*PI] and a vertical rotation [0, PI/2]
- * 
+ * Esta clase representa una cámara en el espacio 3D.
+  * La ubicación de la cámara se define en coordenadas esféricas
+  * es una rotación horizontal de [0, 2 * PI] y una rotación vertical [0, PI / 2]
+ * http://forum.jogamp.org/Loading-and-drawing-obj-models-td2708428.html
  */
 public class GameCamera implements Animatable {
 
@@ -33,10 +32,8 @@ public class GameCamera implements Animatable {
 	}
 	
 	/**
-	 * Generates the location of the camera from the current rotation's defined
-	 * by using the spherical coordinates.
-	 * 
-	 * @return
+	 * Genera la ubicación de la cámara a partir de la rotación actual definida.
+* mediante el uso de las coordenadas esféricas.
 	 */
 	private Vector3f getLocation() {
 		Vector3f loc = new Vector3f();
@@ -46,12 +43,7 @@ public class GameCamera implements Animatable {
 		return loc;
 	}
 	
-	/**
-	 * Creates a ModelView matrix by using the utility method 
-	 * gluLookAt(), supplying the eye location, the look at position(0, 0, 0),
-	 * and loc.x and loc
-	 * 
-	 */
+	
 	public void lookat() {
 		Vector3f loc =  getLocation();
 		glu.gluLookAt(loc.x, loc.y, loc.z,
@@ -60,23 +52,18 @@ public class GameCamera implements Animatable {
 	}
 	
 	/**
-	 * Converts a 2D point on the screen to a 3d point that intersects
-	 * the board (ie the XZ plane)
-	 * 
-	 * @param point 2D point
-	 * @param renderer 
-	 * @return A point whose value represents the x and z intersection at the XZ plane
+	 * Convierte un punto 2D en la pantalla en un punto 3D que se interseca
 	 */
 	public Point2D.Float getClick(Point2D.Float point, Renderer renderer) {
-		//invert y position
+		//posición invertida
 		point.y = screenLength - point.y;
-		float[] rayStart = new float[3]; //the start of our click
+		float[] rayStart = new float[3]; //el inicio de nuestro click
 		glu.gluUnProject(point.x, point.y, 0, 
 					renderer.getModelViewMatrix(), 0, 
 					renderer.getProjectionMatrix(), 0, 
 					renderer.getViewportDimensions(), 0, 
 					rayStart, 0);
-		float[] rayDir = new float[3]; //the start of our click at z=1
+		float[] rayDir = new float[3]; //el inicio de nuestro clic en z = 1
 		glu.gluUnProject(point.x, point.y, 1,
 					renderer.getModelViewMatrix(), 0, 
 					renderer.getProjectionMatrix(), 0, 
@@ -93,8 +80,8 @@ public class GameCamera implements Animatable {
 	}
 	
 	/**
-	 * Method that is called during animation, the camera allows
-	 * animation around it's horizontal rotation
+	 * Método que se llama durante la animación, la cámara permite
+* Animación alrededor de su rotación horizontal.
 	 */
 	@Override
 	public void setValue(String fieldName, float value) {

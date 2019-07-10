@@ -14,29 +14,28 @@ import controller.GameLoop;
 import controller.Player;
 
 /**
- * Defines a StandardGame, where the board is rectangular and
- * the king cannot be in check.
+* Define un StandardGame, donde el tablero es rectangular y
+  * El rey no puede estar en jaque.
  * 
- * @author Nicholas
  *
  */
 public class StandardGame implements GameMode {
 
 	@Override
 	public Board initPieces(Player player1, Player player2) {
-		//Create a standard 8,8 board
+		
 		RectangularBoard board = new RectangularBoard(this);
 		
-		//if the direction is -1 set the pawns to row 6 otherwise set them to 1
+		//si la dirección es -1, establece los peones en la fila 6 de lo contrario configúralos en 1
 		int p1PawnLoc = player1.getDirection() == -1 ? 6 : 1;
 		int p2PawnLoc = player2.getDirection() == -1 ? 6 : 1;
                 
 		for (int i = 0;i < 1;i ++) {
 			new Pawn(i, p1PawnLoc, board, player1);
-			//new Pawn(i, p2PawnLoc, board, player2);
+			//peón nuevo 
 		}
 		
-		//if the direction is -1 set the special pieces to row 7 otherwise set them to 0
+		//si la dirección es -1, establezca las piezas especiales en la fila 7; de lo contrario, ajústelos a 0
 		int p1pieceLoc = player1.getDirection() == -1 ? 7 : 0;
 		int p2pieceLoc = player2.getDirection() == -1 ? 7 : 0;
 		
@@ -47,9 +46,8 @@ public class StandardGame implements GameMode {
 	}	
 
 	/**
-	 * In a standard game this board is inspected to make sure the king
-	 * is not in check
-	 * @returns true if the king is not in check, false otherwise;
+	 * En un juego estándar, este tablero se inspecciona para asegurarse de que el rey no está en jaque
+* @return true si el rey no está bajo control, false en caso contrario;
 	 */
 	@Override
 	public boolean boardValid(Board board, Player mover, ChessMove lastMove) {

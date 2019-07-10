@@ -14,15 +14,17 @@ import view.GameCamera;
 import view.Renderer;
 
 /**
- * Handles any Keystrokes or Mouse-clicks that occur
- * within the chess frame. The methods interprets the clicks, and
- * passes along commands to the GameLoop or Renderer
- * 
- */
+ * Maneja cualquier pulsación de tecla o clic del mouse que ocurra
+  * Dentro del marco de ajedrez. Los métodos interpretan los clics, y
+  * pasa los comandos al GameLoop o al Renderer
+  *https://www.coding-daddy.xyz/node/11?fbclid=IwAR0E4R226mecn5g6JvbwHOhvj3uQIsruDfqDqVS_oM6N8ofoj1mdMeHh9z4
+
+  *
+  */
 public class InputHandler implements KeyListener, MouseListener {
 
 	/**
-	 * References to the GameLoop and Renderer
+	 * Referencias al GameLoop y al Renderer
 	 */
 	private GameLoop gameController;
 	private Renderer renderer;
@@ -33,40 +35,40 @@ public class InputHandler implements KeyListener, MouseListener {
 	}
 	
 	/**
-	 * This method interprets a click within the chess window.
-	 * It uses the camera, to find where that click translates into 
-	 * 3D space (ie where it intersects the board). This method handles the cases
-	 * where there is already of selected a piece, and what to do with that piece
+	 * Este método interpreta un clic dentro de la ventana de ajedrez.
+         * Utiliza la cámara, para encontrar dónde se traduce ese clic.
+         * Espacio 3D (es decir, donde se interseca con el tablero). Este método maneja los casos.
+         * Donde ya hay una pieza seleccionada, y que hacer con esa pieza.
 	 * 
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//get camera
+		//llegar a camara
 		GameCamera camera = renderer.getCamera();
 		Point2D.Float fpoint = new Point2D.Float();
 		fpoint.x = arg0.getPoint().x;
 		fpoint.y = arg0.getPoint().y;
 		Board board = gameController.getBoard();
-		//get the location where the click location intersects the 3D board
+		//obtener la ubicación donde la ubicación de clic se cruza con la placa 3D
 		Point clickLoc = board.getBoardPosition(camera.getClick(fpoint, renderer));
 		//get the chess peice at that tile
 		ChessPiece piece = board.getTile(clickLoc.x, clickLoc.y);
-		if (renderer.getSelectedPiece() != null) { //if a piece is not selected yet...
-			//create a ChessMove object that would move the selected piece to the selected location
+		if (renderer.getSelectedPiece() != null) { //Si una pieza aún no está seleccionada ...
+			//crear un objeto ChessMove que mueva la pieza seleccionada a la ubicación seleccionada
 			ChessMove move = new ChessMove(clickLoc, renderer.getSelectedPiece());
-			if (renderer.getSelectedPiece().getValidMoves().contains(move)) { //if this ChessMove is valid for the piece...
-				gameController.executeMove(move);  //execute the move
-				renderer.setSelectedPiece(null); //piece is no longer selected
-			} else if (renderer.getSelectedPiece() == piece) { //if we selected the piece already selected...
-				renderer.setSelectedPiece(null); //piece is no longer selected
+			if (renderer.getSelectedPiece().getValidMoves().contains(move)) { //Si este ChessMove es válido para la pieza..
+				gameController.executeMove(move);  //ejecutar el movimiento
+				renderer.setSelectedPiece(null); //la pieza ya no está seleccionada
+			} else if (renderer.getSelectedPiece() == piece) { //Si seleccionamos la pieza ya seleccionada ...
+				renderer.setSelectedPiece(null); //la pieza ya no está seleccionada
 			} else if (piece != null && piece.getPlayer() == gameController.getCurrentPlayer()) { 
-				if (piece.getValidMoves().size() != 0) //if it has any valid moves...
-					renderer.setSelectedPiece(piece); //set selected piece
+				if (piece.getValidMoves().size() != 0) //Si tiene algún movimiento válido ...
+					renderer.setSelectedPiece(piece); //Establecer pieza seleccionada
 			}
-		//if piece is selected and is a piece of our currentPlayer
+		//Si la pieza está seleccionada y es una pieza de nuestro jugador actual.
 		} else if (piece != null && piece.getPlayer() == gameController.getCurrentPlayer()) { 
-			if (piece.getValidMoves().size() != 0) //if it has any valid moves...
-				renderer.setSelectedPiece(piece); //set selected piece
+			if (piece.getValidMoves().size() != 0) //Si tiene algún movimiento válido ...
+				renderer.setSelectedPiece(piece); //Establecer pieza seleccionada
 		} else {
 			renderer.setSelectedPiece(null);
 		}
@@ -87,8 +89,7 @@ public class InputHandler implements KeyListener, MouseListener {
 	public void mouseReleased(MouseEvent arg0) { }
 
 	/**
-	 * This method captures any key presses, which currently just
-	 * handles undo
+       * Este método captura cualquier pulsación de tecla, que actualmente solo maneja deshacer
 	 */
 	@Override
 	public void keyPressed(KeyEvent arg0) { 

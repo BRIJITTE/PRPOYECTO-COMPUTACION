@@ -1,5 +1,4 @@
 package controller;
-//sfddf
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -18,59 +17,31 @@ import view.loaders.AssetLoader;
 import controller.util.Animation;
 
 /**
- * This class will control the gameflow of the program. This class
- * implements the maintaining running loop for this application, and has basic functions
- * that control chess gameflow, such as execute move, cancel game, and setupNewGame
- * 
- */
+  * Esta clase controlará el flujo del juego del programa. Esta clase
+  * implementa el bucle de ejecución de mantenimiento para esta aplicación, y tiene funciones básicas
+  * que controla el flujo de juegos de ajedrez, como ejecutar movimientos, cancelar juegos y configurar JuegosNuevo
+  * https://stackoverflow.com/questions/27671817/jogl-efficient-render-loop
+  */
 
 public class GameLoop implements Runnable {
 	
-	/**
-	 * Reference to the canvas, used to redraw
-	 */
+	 
 	private GLCanvas canvas;
 	private Renderer renderer;
-	
-	/**
-	 * The players that in this game
-	 */
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;
-	
-	/**
-	 * A reference to the board
-	 */
 	private Board board;
-	
-	/**
-	 * The type of game played
-	 */
 	private GameMode gameMode;
-	
-	/**
-	 * A list of a moves, used for undo implementation
-	 */
 	private Stack<ChessMove> allMoves;
-	
-	/**
-	 * Flags used to determine if the game is over
-	 */
 	private Player winner;
 	private boolean running;
-	
-	/**
-	 * Variables used for animations
-	 */
-	private float lastRenderTime;
+        private float lastRenderTime;
 	private CopyOnWriteArrayList<Animation> animations;
 	
 	/**
-	 * Constructs a new gameloop, with the given canvas.
-	 * The renderer is set later.
+	 * Construye un nuevo gameloop, con el lienzo dado.
 	 * 
-	 * @param _canvas The opengl window created
 	 */
 	public GameLoop(GLCanvas _canvas, JFrame frame) {
 		canvas = _canvas;
@@ -81,31 +52,30 @@ public class GameLoop implements Runnable {
 	}
 	
 	/**
-	 * Sets up the game for the given gameMode. This
-	 * method initializes the players and the board. This 
-	 * method is called automatically, when the current game ends
-	 * 
-	 * @param _gameMode The game mode to be used
+	 * Configura el juego para el modo de juego dado. Esta
+         * Método inicializa los jugadores y el tablero. Esta
+         * El método se llama automáticamente, cuando el juego actual termina.
+	 *
 	 */
 	public synchronized void setupNewGame(GameMode _gameMode) {
-		//reset all animations and moves
+		// restablecer todas las animaciones y movimientos
 		allMoves = new Stack<ChessMove>();
 		animations = new CopyOnWriteArrayList<Animation>();
 		
-		//reset current player
+		// reiniciar jugador actual
 		currentPlayer = player1;
 		gameMode = _gameMode;
 		player1.reset();
 		player2.reset();
 		board = gameMode.initPieces(player1, player2);
 		
-		//Load the board models, will be ignored if already created
+		//Cargar los modelos de tablero, se ignorarán si ya están creados.
 		AssetLoader.getInstance().addModel(board.generateBoardModel(), board.getType());
 		AssetLoader.getInstance().addModel(board.generateTileModel(), board.getType() + ":Tile");
 		running = false;
 		winner = null;
 		
-		//set camera in player1's direction
+		//coloque la cámara en la dirección del jugador 1
 		if (renderer.getCamera() != null)
 			renderer.getCamera().setHorizontalRotation(player1.getCameraDirection());
 		
@@ -114,17 +84,16 @@ public class GameLoop implements Runnable {
 	}
 	
 	/**
-	 * The method is what runs when start() is called on a thread. The
-	 * method will continue running until running is set to "false", ie the
-	 * game is over. When running is set to false, the winner will be displayed
-	 * and new game will be set up.
+        * el método continuará ejecutándose hasta que la ejecución esté configurada en "falso", es decir,
+        * El juego ha terminado. Cuando se ejecuta en falso, se mostrará el ganador.
+        * y se establecerá un nuevo juego.
 	 */
 	@Override
 	public void run() {
 		running = true;
-		/* Every iteration this thread updates the animations and
-		 * displays the board. Since frame rates can vary, we calculate
-		 * the last running time to update the animations uniformly.
+		/*Cada iteración de este hilo actualiza las animaciones y
+                 * Muestra el tablero. Dado que las tasas de fotogramas pueden variar, calculamos
+                 * el último tiempo de ejecución para actualizar las animaciones de manera uniforme.
 		 */
 		while (running || !animations.isEmpty()) {
 			long startTime = System.nanoTime();
@@ -152,58 +121,54 @@ public class GameLoop implements Runnable {
 	}
 		
 	/**
-	 * Executes a chess move, sets up an animation,
-	 * and switches the currentPlayer. The ChessMove
-	 * is also added the total move list, so it can be undone
-	 * later if necessary. This move also checks to see if there
-	 * is any moves left for the other to make, otherwise the game is ended
-	 *  If their is no game running, this method
-	 * does nothing.
-	 * 
-	 * @param move ChessMove to be executed, must be a validMove
+	 
+* Ejecuta un movimiento de ajedrez, configura una animación,
+* Este movimiento también comprueba si hay
+* es cualquier movimiento que le queda al otro para hacer, de lo contrario el juego termina
+* Si no hay un juego en ejecución, este método
+* no hace nada.
+	 *
 	 */
 	public synchronized void executeMove(ChessMove move) {
 		if (!running) 
 			return;
 		
-		//add move
+		//añadir movimiento
 		allMoves.push(move);
-		//actually execute the move
+		//en realidad ejecuta el movimiento
 		move.executeMove(true);
 		currentPlayer = currentPlayer.getOtherPlayer();
-		//check to see if there are any moves left
+		//Compruebe si hay movimientos a la izquierda
 		boolean noMoves = board.noPossibleMoves(currentPlayer);
 		if (noMoves) {
-			//check the game mode to see if the player has lost
+			//Comprueba el modo de juego para ver si el jugador ha perdido//
 			if (gameMode.hasPlayerLost(board, currentPlayer)) 
 				cancelGame(currentPlayer.getOtherPlayer());
-			else //or just tied
+			else //o simplemente atado
 				cancelGame(null);
 			
 			return;
 		}
 		gameMode.postMoveAction(this, move);
 		
-		//create animations based on move locations
+		//Crea animaciones basadas en ubicaciones de movimiento.
 		Point2D.Float start = board.getRenderPosition(move.getStartLocation());
 		Point2D.Float end = board.getRenderPosition(move.getMoveLocation());
 		
 		animations.add(new Animation(move.getPiece(), "drawLocationX", start.x, end.x, 1));
 		animations.add(new Animation(move.getPiece(), "drawLocationY", start.y, end.y, 1));
-		//rotate the camera
+		//girar la cámara
 		GameCamera c = renderer.getCamera();
 		animations.add(new Animation(c, "horizontalRotation", c.getHorizontalRotation(), 
 				currentPlayer.getCameraDirection(), 2));
 	}
 	
 	/**
-	 * Undoes a chess move, sets up an animation,
-	 * and switches the currentPlayer.
-	 *  If their is no game running, or there are moves to 
-	 *  undo, this method does nothing.
-	 * 
-	 * @param move ChessMove to be executed, must be a validMove
-	 */
+	Deshace un movimiento de ajedrez, configura una animación,
+       * Si no hay un juego en ejecución, o si hay movimientos para Deshacer
+       *este método no hace nada.
+       *
+	*/
 	public synchronized void undoLastMove() {
 		if (!running) 
 			return;
@@ -211,33 +176,32 @@ public class GameLoop implements Runnable {
 		if (allMoves.empty())
 			return;
 		
-		//get last move
+		//obtener el último movimiento
 		ChessMove lastMove = allMoves.pop();
-		//undo it
+		//deshacerlo
 		lastMove.undoMove();
-		//swap players
+		//jugadores de intercambio
 		currentPlayer = currentPlayer.getOtherPlayer();
 		if (!allMoves.isEmpty())
 			gameMode.postMoveAction(this, allMoves.peek());
 		
-		//create animation
+		//crear animación
 		Point2D.Float start = board.getRenderPosition(lastMove.getMoveLocation());
 		Point2D.Float end = board.getRenderPosition(lastMove.getStartLocation());
 		
 		animations.add(new Animation(lastMove.getPiece(), "drawLocationX", start.x, end.x, 1));
 		animations.add(new Animation(lastMove.getPiece(), "drawLocationY", start.y, end.y, 1));
-		//rotate camera
+		//girar la cámara
 		GameCamera c = renderer.getCamera();
 		animations.add(new Animation(c, "horizontalRotation", c.getHorizontalRotation(), 
 				currentPlayer.getCameraDirection(), 2));
 	}
 	
 	/**
-	 * Cancels the game, which will result in no moves,
-	 * being able to be made, but the any animations will finish.
-	 * 
-	 * @param _winner The winner of the game, can be null in which case the 
-	 * game was a tie
+	 * Cancela el juego, lo que resultará en ningún movimiento,
+         * Poder hacerse, pero las animaciones terminarán.
+          El ganador del juego, puede ser nulo, en cuyo caso el
+         * el juego era un empate
 	 */
 	public void cancelGame(Player _winner) {
 		running = false;

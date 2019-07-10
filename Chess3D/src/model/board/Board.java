@@ -14,14 +14,15 @@ import view.loaders.structures.Model;
 import controller.Player;
 
 /**
- * Abstract board class that is responsible for all the operations
- * on a chess board. The board is responsible for determining if
- * moves are valid, as well as rendering the whole scene.
- */
+  * Clase de tablero abstracto que es responsable de todas las operaciones.
+  * en un tablero de ajedrez. La junta es responsable de determinar si
+  * Los movimientos son válidos, así como la representación de toda la escena.
+  */
+
 public abstract class Board {
 	
 	/**
-	 * Reference to the gameMode
+	 * Referencia al modo de juego.
 	 */
 	protected GameMode gameMode;
 	
@@ -30,205 +31,140 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Generates the 3d model for the board, so that it may be added as 
-	 * a model to AssetLoader class. NOTE: this method is called automatically by
-	 * the GameLoop during setup and should NEVER be called again. The proper way
-	 * to access this Model would be AssetLoader.getInstace().getModel(getType())
-	 * 
-	 * @return the generated board model
+	 * Genera el modelo 3d para el tablero, para que se pueda agregar como
+         * Un modelo para la clase AssetLoader. NOTA: este método es llamado automáticamente por
+         * el GameLoop durante la configuración y NUNCA debe llamarse de nuevo. La forma correcta
+         * para acceder a este Modelo sería AssetLoader.getInstace (). getModel (getType ())
+          *
+         * @return el modelo de tablero generado
 	 */
 	public abstract Model generateBoardModel();
 	
 	/**
-	 * Generates the 3d model for the board, so that it may be added as 
-	 * a model to AssetLoader class. NOTE: this method is called automatically by
-	 * the GameLoop during setup and should NEVER be called again. The proper way
-	 * to access this Model would be AssetLoader.getInstace().getModel(getType())
-	 * 
-	 * @return the generated board model
+	   * Genera el modelo 3d para el tablero, para que se pueda agregar como
+           * Un modelo para la clase AssetLoader. NOTA: este método es llamado automáticamente por
+           * el GameLoop durante la configuración y NUNCA debe llamarse de nuevo. La forma correcta
+           * para acceder a este Modelo sería AssetLoader.getInstace (). getModel (getType ())
+           *
+           * @return el modelo de tablero generado
 	 */
 	public abstract Model generateTileModel();
 	
 	/**
-	 * String used to identify the type of board. Also used as a unique 
-	 * model name
-	 * 
-	 * @return String used to identify the type of board
+	 * Cadena utilizada para identificar el tipo de tabla. También se utiliza como un único nombre del modelo
+*
+       * @return String se usa para identificar el tipo de tabla
 	 */
 	public abstract String getType();
 	
 	/**
-	 * Converts the given tile location into 3D point, that is scaled
-	 * to the boards size 
-	 * 
-	 * @param loc tile location
-	 * @return 3D representation of loc
+	 * Convierte la ubicación de mosaico dada en un punto 3D, que se escala al tamaño de las tablas
+         *
+         * @param loc tile location
+         * @return representación 3D de loc
 	 */
 	public abstract Point2D.Float getRenderPosition(Point loc);
 	
 	/**
-	 * Converts the given 3d location into a tile location,
-	 * which can be used to access items on the board
-	 * 
-	 * @param renderPoint 3d point
-	 * @return tile point representation of loc
+	 * Convierte la ubicación 3d dada en una ubicación de mosaico,
+          * que se puede utilizar para acceder a los elementos en el tablero
 	 */
 	public abstract Point getBoardPosition(Point2D.Float renderPoint);
 	
 	/**
-	 * Returns the piece at the given coordinates, as interpreted by the Board object.
-	 * 
-	 * @param x
-	 * @param y
-	 * @return the ChessPiece at the position, null otherwise
+	 * Devuelve la pieza en las coordenadas dadas, según lo interpretado por el objeto Tablero.
+         * @return la pieza de ajedrez en la posición, null de lo contrario
 	 */
 	public abstract ChessPiece getTile(int x, int y);
 	
 	
 	/**
-	 * Sets the piece to the (x, y) position, and sets the internal
-	 * boardLocation of the piece. If a piece already existed it is removed
-	 * from the board, location set to (-1, -1) and returned
-	 * 
-	 * @param piece Piece to be moved
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return the piece that was occupying this tile, null otherwise
+	 * Establece la pieza en la posición (x, y), y establece el interno
+         * Junta de ubicación de la pieza. Si una pieza ya existía se elimina.
+         * del tablero, ubicación establecida en (-1, -1) y devuelta
+         *
+         * @param pieza. Pieza a mover.
+         * @param x Ubicación del tablero x
+         * @param y Ubicación del tablero y
+          @return la pieza que estaba ocupando este azulejo, nulo de lo contrario
 	 */
 	public abstract ChessPiece setTile(ChessPiece piece, int x, int y);
 	
 	
 	/**
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return true if the given location is within the boards dimensions, false
-	 *  otherwise 
+	 *@param x Ubicación del tablero x
+        * @param y Ubicación del tablero y
+        * @return true si la ubicación dada está dentro de las dimensiones de los tableros, false de lo contrario
 	 */
 	public abstract boolean isInBounds(int x, int y);
 	
 	/**
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @param attacker The player making the move
-	 * @return true if the tile at (x, y) contains a piece of the opposing player
+	 * @param x Ubicación del tablero x
+         * @param y Ubicación del tablero y
+         * @param attacker El jugador que realiza el movimiento.
+         * @return true si la ficha en (x, y) contiene una parte del jugador oponente
 	 */
 	public abstract boolean hasEnemyPiece(int x, int y, Player attacker);
 	
 	/**
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @param attacker The player making the move
-	 * @param canCapture If a piece is able to capture on the the tile
-	 * @return true if the space is open (ie no piece is on the tile) or if the 
-	 *   tile contains an enemy piece, and the attacker can capture it 
+	 * @param x Ubicación del tablero x
+         * @param y Ubicación del tablero y
+         * @param attacker El jugador que realiza el movimiento.
+         * @param canCapture Si una pieza es capaz de capturar en el mosaico
+         * @return true si el espacio está abierto (es decir, no hay ninguna pieza en la baldosa) o si
+         * La ficha contiene una pieza enemiga, y el atacante puede capturarla.
 	 */
 	public abstract boolean isMovableTile(int x, int y, Player attacker, boolean canCapture);
 	
-	/**
-	 * This method on a rectangular board return 4 positions (left, right, top, bottom)
-	 * and on a hexagonal 6. This method is best thought of as all the directions a rook
-	 * would travel. NOTE: these locations may not be in bounds, and must be checked
-	 * accordingly
-	 * 
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return an array of all the locations adjacent to the given location
-	 */
 	public abstract ArrayList<Point> getAdjacentRankFileTiles(int x, int y);
 	
-	/**
-	 * This method on a rectangular board return 4 positions (top-left, top-right, 
-	 * bottom-left, bottom-right) and on a hexagonal 5. This method is best thought of as all the 
-	 * directions a bishop would travel. NOTE: these locations may not be in bounds, and must be checked
-	 * accordingly.
-	 * 
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return an array of all the locations diagonal to the given location
-	 */
 	public abstract ArrayList<Point> getAdjacentDiagonalTiles(int x, int y);
 	
-	/**
-	 * This method on a rectangular board returns 8 positions that form an L shape, and
-	 * 12 positions on a hexagonal board. NOTE: these locations may not be in bounds,
-	 * and must be checked accordingly
-	 * 
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return an array of all the positions a knight at (x, y) can travel on this board
-	 */
 	public abstract ArrayList<Point> getKnightMoves(int x, int y);
 	
-	/**
-	 * This method on a rectangular board returns 2 positions if the pawn has not yet moved 
-	 * (the 2 spaces directly in from of the pawn), or 1 move if the pawn has moved
-	 * The Pawn class is responsible for determining if these locations are valid
-	 * (ie only one location is valid if it already moved). NOTE: these locations may not be in bounds,
-	 * and must be checked accordingly
-	 * 
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return an array of all the positions a pawn at (x, y) can travel on this board
-	 */
 	public abstract ArrayList<Point> getPawnMoves(int x, int y, Pawn pawn);
-	
-	/**
-	 * This method on a rectangular board returns 2 positions, on a rectangular board
-	 * these are the 2 diagonals in front, while on a hex board they are the top-left and
-	 * top-right adjacent tiles.
-	 * 
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @return an array of all the positions a pawn at (x, y) can attack on this board
-	 */
+	 
 	public abstract ArrayList<Point> getPawnAttacks(int x, int y, Pawn pawn);
 	
-	/**
-	 * Same as {@link #isInBounds(int, int) isInBounds}
-	 * @param loc Board location point
-	 */
+	
 	public boolean isInBounds(Point loc) {
 		return isInBounds(loc.x, loc.y);
 	}
 	
 	/**
-	 * Same as {@link #hasEnemyPiece(int, int) isAttackable}
-	 * @param loc Board location point
+	 *  @param loc Punto de ubicación del tablero
 	 */
 	public boolean hasEnemyPiece(Point loc, Player attacker) {
 		return hasEnemyPiece(loc.x, loc.y, attacker);
 	}
 	
 	/**
-	 * Same as {@link #isMovableTile(int, int, Player, boolean) isMovableTile}
-	 * @param loc Board location point
+	 *  @param loc Punto de ubicación del tablero
 	 */
 	public boolean isMovableTile(Point loc, Player player, boolean canCapture) {
 		return isMovableTile(loc.x, loc.y, player, canCapture);
 	}
 
 	/**
-	 * Same as {@link #getAdjacentRankFileTiles(int, int) getAdjacentFlatTiles}
-	 * @param loc Board location point
+	 *  @param loc Punto de ubicación del tablero
 	 */
 	public ArrayList<Point> getAdjacentRankFileTiles(Point loc) {
 		return getAdjacentRankFileTiles(loc.x, loc.y);
 	}
 	
 	/**
-	 * Same as {@link #getAdjacentDiagonalTiles(int, int) getAdjacentDiagonalTiles}
-	 * @param loc Board location point
+	 * @param loc Punto de ubicación del tablero
 	 */
 	public ArrayList<Point> getAdjacentDiagonalTiles(Point loc) {
 		return getAdjacentDiagonalTiles(loc.x, loc.y);
 	}
 	
 	/**
-	 * @param x Board location x
-	 * @param y Board location y
-	 * @param victim The player who's piece will be taken
-	 * @return true if the victim's piece at (x, y) can be taken 
-	 *  by any of the opponents pieces
+	 * @param x Ubicación del tablero x
+* @param y Ubicación del tablero y
+* @param victim El jugador cuya pieza será tomada.
+* @return true si la pieza de la víctima en (x, y) puede tomarse
+* por cualquiera de las piezas del oponente.
 	 */
 	public boolean locationPressured(int x, int y, Player victim) {
 		for (ChessPiece oppPiece : victim.getOtherPlayer().getPieces()) {
@@ -240,27 +176,22 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Same as {@link #locationPressured(int, int, Player) locationCapturable}
-	 * @param loc Board location point
-	 * @param victim The player who's piece will be taken
+	 *@param victim El jugador cuya pieza será tomada.
 	 */
 	public boolean locationPressured(Point loc, Player victim) {
 		return locationPressured(loc.x, loc.y, victim);
 	}
 	
 	/**
-	 * Determines if this move is valid in the context of the game mode. For
-	 * example a move that puts a king in check is not valid. This method simulates
-	 * the move, then asks the gameMode to determine if the board is in a valid
-	 * state. The board is then reset to the original state and the method returns
-	 * the game mode's response
-	 * 
-	 * @param move
-	 * @return true if the move is valid in the context of the gameMode;
+	 * Determina si este movimiento es válido en el contexto del modo de juego. por
+* ejemplo, un movimiento que pone a un rey en jaque no es válido. Este método simula
+* el movimiento, luego le pide a gameMode que determine si el tablero está en un válido
+* estado. La placa se restablece al estado original y el método vuelve.
+* La respuesta del modo de juego.
 	 */
 	public boolean isValidMove(ChessMove move) {
-		/* Works by simulating the chess move an calling gameMode.boardValid()
-		 * The board will then be set back to its original state
+		/* Funciona simulando el movimiento de ajedrez moviendo un gameMode.boardValid ()
+* El tablero volverá a su estado original.
 		 */
 		move.executeMove(false);
 		boolean retVal = gameMode.boardValid(this, move.getPiece().getPlayer(), move);
@@ -269,12 +200,9 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Returns all the valid moves for the player, see 
-	 * {@link #isValidMove(ChessMove) isValidMove} for the definition 
-	 * on a valid move
-	 * 
-	 * @param player
-	 * @return an array of all valid moves
+	 *Devuelve todos los movimientos válidos para el jugador
+
+* @return una matriz de todos los movimientos válidos
 	 */
 	public ArrayList<ChessMove> getAllMoves(Player player) {
 		ArrayList<ChessMove> moves = new ArrayList<ChessMove>();
@@ -286,24 +214,12 @@ public abstract class Board {
 	
 	
 	/**
-	 * Checks to see if their are any valid moves that 
-	 * can be made
-	 * 
-	 * @param victim
-	 * @return true if there are any valid moves, false otherwise
+	 * Comprueba si hay algún movimiento válido que puede ser hecho
 	 */
 	public boolean noPossibleMoves(Player victim) { 
 		return getAllMoves(victim).isEmpty();
 	}
 	
-	/**
-	 * Renders the board with the given opengl context. This 
-	 * methods renders the board's mesh, and all the pieces on the board,
-	 * by repeated calls to ChessPiece.render(gl);
-	 * 
-	 * @param gl
-	 * @param selectedPiece 
-	 */
 	public abstract void render(GL2 gl, ChessPiece selectedPiece);
 	
 }

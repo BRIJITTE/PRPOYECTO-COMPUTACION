@@ -8,11 +8,11 @@ import model.board.Board;
 import controller.Player;
 
 /**
- * Represents the King, which in a Standard game results in a
- * loss if captured. Depending on the game a king may not always be
- * important (such as in suicide) so the option to validate check
- * must be passed in, which is used to determine if the king can move into
- * check situation
+* Representa al rey, que en un juego estándar da como resultado un
+  * Pérdida si es capturado. Dependiendo del juego, un rey no siempre puede ser
+  * Importante (como en el suicidio) por lo que la opción de validar cheque
+  * se debe pasar, que se utiliza para determinar si el rey puede pasar a
+  * verifique la situación
  *
  */
 public class King extends ChessPiece {
@@ -23,17 +23,13 @@ public class King extends ChessPiece {
 	}
 
 	/**
-	 * Returns all the diagonal/adjacent moves that the king can capture/move to
-	 * 
-	 * NOTE: the list of possible moves includes moves that will put this King in check,
-	 * (if the game allows). This is intentional, if you want a list of valid moves (ie 
-	 * moves that conform the the current GameMode's rules) call getValidMoves()
+	 * Devuelve todos los movimientos diagonales / adyacentes que el rey puede capturar
 	 */
 	@Override
 	public ArrayList<ChessMove> getPossibleMoves() {
-		//get immediate adjacent moves
+		//obtener movimientos adyacentes inmediatos
 		ArrayList<ChessMove> moves = getDiagonalMoves(false, true);
-		//get immediate diagonal moves
+		//obtener movimientos diagonales inmediatos
 		moves.addAll(getRankFileMoves(false, true));
 		return moves;
 	}

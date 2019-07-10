@@ -20,34 +20,21 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 /**
- * Utility class used for loading the required resources for this project including 
- * textures, shaders, and models. This class uses the Singleton design pattern
+* Clase de utilidad utilizada para cargar los recursos necesarios para este proyecto, incluyendo
+  * Texturas,  y modelos. Esta clase utiliza el patrón de diseño Singleton.
  */
 public class AssetLoader {
 
-	/**
-	 * The only AssetLoader object
-	 */
+	
 	private static AssetLoader loader;
 	
-	/**
-	 * Holds all the textures, with a unique name
-	 */
+	
 	private Map<String, Texture> textures;
 	
-	/**
-	 * Holds all the shaders, with a unique name
-	 */
 	private Map<String, Shader> shaders;
 	
-	/**
-	 * Holds all the Models, with a unique name
-	 */
 	private Map<String, Model> models;
 	
-	/**
-	 * The current texture that is bound
-	 */
 	private String currentTexture;
 	
 	private AssetLoader() {
@@ -57,10 +44,9 @@ public class AssetLoader {
 	}
 	
 	/**
-	 * Returns the only created object of the AssetLoader class,
-	 * and if no object exists yet create one.
-	 * 
-	 * @return a reference to the only AssetLoader class
+	 * Devuelve el único objeto creado de la clase AssetLoader,
+* y si no existe ningún objeto aún crea uno.
+	
 	 */
 	public static AssetLoader getInstance() {
 		if (loader == null)
@@ -71,10 +57,7 @@ public class AssetLoader {
 	
 	
 	/**
-	 * Loads a basic model file, with the format (vertex, normal, textureCoord)\n"
-	 * 
-	 * @param gl
-	 * @param file the directory of all the models
+	 * Carga un archivo de modelo básico, con el formato (vértice, normal, textureCoord) \ n "
 	 */
 	public void loadChessModels(GL2 gl) {
 		try {
@@ -83,22 +66,22 @@ public class AssetLoader {
 					"LameQueen.mdl", "Pawn.mdl", "Queen.mdl", "Rook.mdl"
 				};
 			ClassLoader cl = getClass().getClassLoader();
-			for (String file : modelNames) { //Loop through all the files 
+			for (String file : modelNames) {
 				
-				//create a file reader
+				//crear un lector de archivos
 				BufferedReader reader = new BufferedReader(
 						new InputStreamReader(cl.getResourceAsStream("view/Models/" + file)));
 				
-				//the first line is the size
+				
 				int size = Integer.parseInt(reader.readLine());
-				//create the buffer
+				
 				FloatBuffer buffer = ByteBuffer.allocateDirect(size * 8 * (Float.SIZE / 4)).
 		                order(ByteOrder.nativeOrder()).asFloatBuffer();
 				
 				String currentLine;
-				while ((currentLine = reader.readLine()) != null) {//read each line
-					for (String val : currentLine.split(" ")) //load the line
-						buffer.put(Float.parseFloat(val)); //insert into the buffer
+				while ((currentLine = reader.readLine()) != null) {
+					for (String val : currentLine.split(" ")) 
+						buffer.put(Float.parseFloat(val)); 
 				}
 			
 				buffer.rewind();
@@ -110,11 +93,7 @@ public class AssetLoader {
 	}
 	
 	/**
-	 * Adds an in application built model, which is used by the Board classes,
-	 * to add their dynamically created models 
-	 * 
-	 * @param model
-	 * @param name
+	 *Agrega un modelo incorporado en la aplicación, para añadir sus modelos creados dinámicamente.
 	 */
 	public void addModel(Model model, String name) {
 		if (models.containsKey(name))
@@ -123,26 +102,16 @@ public class AssetLoader {
 		models.put(name, model);
 	}
 
-	/**
-	 * @param name
-	 * @return returns the model for the name
-	 */
+
 	public Model getModel(String name) {
 		return models.get(name);
 	}
 	
-	/**
-	 * Load all the textures in the file supplied
-	 * 
-	 * @param gl
-	 * @param dir the file containing the textures
-	 * @throws IOException 
-	 * @throws GLException 
-	 */
+	
 	public void loadChessTextures(GL2 gl) throws GLException, IOException {
 		ClassLoader cl = getClass().getClassLoader();
 		String[] texturesNames = { "Black.png", "BlackWhite.png", "Green.png", "White.png" };
-		for (String file : texturesNames)  { //loop through all images
+		for (String file : texturesNames)  { //recorrer todas las imágenes
 			Texture tex = TextureIO.newTexture(cl.getResourceAsStream("view/Textures/" + file), true, TextureIO.PNG);
 			tex.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
 		    tex.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
@@ -153,11 +122,7 @@ public class AssetLoader {
 	}
 	
 	/**
-	 * Bind the texture supplied by the name, if it is not the
-	 * current one bound.
-	 * 
-	 * @param gl
-	 * @param name
+	 * Enlazar la textura proporcionada por el nombre
 	 */
 	public void bindTexture(GL2 gl, String name) {
 		if (currentTexture != null && currentTexture.equals(name))
@@ -168,11 +133,7 @@ public class AssetLoader {
 	}
 	
 	/**
-	 * Loads a shader file 
-	 * 
-	 * @param gl
-	 * @param dataSource
-	 * @throws IOException 
+	 * Carga un archivo de sombreado 
 	 */
 	public void loadShader(GL2 gl, String path, String name) throws IOException {
 			File fs = new File(path + File.pathSeparator + name + ".fs");

@@ -18,12 +18,13 @@ import view.loaders.structures.Model;
 import controller.Player;
 
 /**
- * Rectangular board which can be given any dimensions. This class inherits 
- * from Board, and overrides all the methods necessary, using a simple multidimensional 
- * array to represent the data. The would be the Board to use for a standard
- * game of chess (with size (8, 8), or by using the default constructor). 
- * 
- */
+  * Tablero rectangular al que se le puede dar cualquier dimensión. Esta clase hereda
+  * de la Junta, y anula todos los métodos necesarios, utilizando un simple multidimensional
+  * matriz para representar los datos. Sería la Junta a utilizar para un estándar
+  * juego de ajedrez (con tamaño (8, 8), o usando el constructor por defecto).
+  * https://www.youtube.com/watch?v=7ZGqDyPurtY
+  */
+
 public class RectangularBoard extends Board {
 
 	private final static float RENDER_SIZE = 18;

@@ -12,43 +12,21 @@ import controller.Player;
 import controller.util.Animation.Animatable;
 
 /**
- * Basic template for any ChessPiece, which provides the basic
- * methods to move the Piece.
- *
- */
+  * Plantilla básica para cualquier pieza de ajedrez, que proporciona la base.
+  * Métodos para mover la pieza.
+  *
+  */
 public abstract class ChessPiece implements Animatable {
 
 	private float drawLocationX;
 	private float drawLocationY;
-	
-	/**
-	 * The board location of the piece
-	 */
 	protected Point location;
-	
-	/**
-	 * If the piece has been used yet
-	 */
 	protected boolean hasMoved;
-	
-	/**
-	 * The player owning this piece
-	 */
 	protected Player player;
-	
-	/**
-	 * Reference to the board
-	 */
 	protected Board board;
 	
 	/**
-	 * Initializes the basic variables of a chess piece and
-	 * adds it to the board
-	 *  
-	 * @param x
-	 * @param y
-	 * @param _board
-	 * @param _player
+	 * Inicializa las variables básicas de una pieza de ajedrez y lo agrega al tablero
 	 */
 	public ChessPiece(int x, int y, Board _board, Player _player) {
 		location = new Point(x, y);
@@ -64,13 +42,12 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * Used by pieces such as the rook, queen and king to get the moves
-	 * in the rank-file directions of the boards. Will only return all the moves 
-	 * up to (and including) an enemy piece and as long as the piece remains valid
-	 * 
-	 * @param cont true returns the list of all moves in the flat directions
-	 * @param canCapture true if this piece can capture
-	 * @return an array of the valid moves possible in the flat direction
+      * En el archivo de rangos de direcciones de las tablas. Solo devolverá todos los movimientos.
+      * hasta (e incluyendo) una pieza enemiga y mientras la pieza siga siendo válida
+         *  
+      * @param cont true devuelve la lista de todos los movimientos en las direcciones planas
+      * @param canCapture true si esta pieza puede capturar
+      * @return una serie de los movimientos válidos posibles en la dirección plana
 	 */
 	protected ArrayList<ChessMove> getRankFileMoves(boolean cont, boolean canCapture) {
 		ArrayList<ChessMove> moves = new ArrayList<ChessMove>();
@@ -93,13 +70,12 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * Used by pieces such as the bishop, queen and king to get the moves
-	 * in the diagonal directions of the boards. Will only return all the moves 
-	 * up to (and including) an enemy piece and as long as the piece remains valid
-	 * 
-	 * @param cont true returns the list of all moves in the diagonal directions
-	 * @param canCapture true if this piece can capture
-	 * @return an array of the valid moves possible in the diagonal direction
+         * En las direcciones diagonales de las tablas. Solo devolverá todos los movimientos.
+          * hasta (e incluyendo) una pieza enemiga y mientras la pieza siga siendo válida
+*
+* @param cont true devuelve la lista de todos los movimientos en las direcciones diagonales
+* @param canCapture true si esta pieza puede capturar
+* @return una serie de los movimientos válidos posibles en la dirección diagonal
 	 */
 	protected ArrayList<ChessMove> getDiagonalMoves(boolean cont, boolean canCapture) {
 		ArrayList<ChessMove> moves = new ArrayList<ChessMove>();
@@ -122,13 +98,13 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * Moves this piece to the position, while internally checking
-	 * if the moves is valid (by comparing the given location to possible moves)
-	 * 
-	 * @throws IllegalArgumentException if this position cannot move to the given location
-	 * @param loc the location to move to 
-	 * @param checkValid 
-	 * @return the ChessPiece that was at the position original
+	 * Mueve esta pieza a la posición, mientras verifica internamente
+         * si los movimientos son válidos (comparando la ubicación dada con los movimientos posibles)
+         *
+         * @ throws IllegalArgumentException si esta posición no puede moverse a la ubicación dada
+         * @param localiza la ubicación para moverte a
+         * @param checkValid
+         * @return la pieza de ajedrez que estaba en la posición original
 	 */
 	public ChessPiece movePieceToTile(Point loc, boolean checkValid) {
 		if (!checkValid || getValidMoves().contains(new ChessMove(loc, this))) {
@@ -145,19 +121,18 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * Overridden by all chess piece classes, which returns an Array of chess
-	 * moves that this peice can make 
-	 * 
-	 * @return An array of all the possible moves this piece can make
+	 * Anulado por todas las clases de piezas de ajedrez, que devuelve una matriz de ajedrez.
+         * Movimientos que esta pieza puede hacer.
+          *
+         * @return Una serie de todos los movimientos posibles que esta pieza puede hacer.
 	 */
 	public abstract ArrayList<ChessMove> getPossibleMoves();
 	
 	/**
-	 * Subset of getPossibleMoves() which returns all the moves that 
-	 * result in a capture
-	 * 
-	 * @return An array of all the possible moves this piece can make
-	 *  that result in it taking a piece.
+	 * Subconjunto de getPossibleMoves () que devuelve todos los movimientos que dar como resultado una captura
+         *
+         * @return Una serie de todos los movimientos posibles que esta pieza puede hacer.
+         * Eso resulta en que tome una pieza.
 	 */
 	public ArrayList<ChessMove> getCaptureMoves() {
 		ArrayList<ChessMove> moves = new ArrayList<ChessMove>();
@@ -169,12 +144,12 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * Subset of getPossibleMoves() which contains all the moves which 
-	 * are valid to the type of game mode. For example, getPossibleMoves()
-	 * for a king would return the 8 squares around it, while getValidMoves()
-	 * would only return the moves that don't put this king in check (for a standard game)
-	 * 
-	 * @return An array of valid chess moves
+	 * Subconjunto de getPossibleMoves () que contiene todos los movimientos que
+         * Son válidos para el tipo de modo de juego. Por ejemplo, getPossibleMoves ()
+         * para un rey devolvería las 8 casillas a su alrededor, mientras que getValidMoves ()
+         * solo devolvería los movimientos que no ponen a este rey en jaque (para un juego estándar)
+         *
+         * @return Una serie de movimientos de ajedrez válidos.
 	 */
 	public ArrayList<ChessMove> getValidMoves() {
 		ArrayList<ChessMove> moves = new ArrayList<ChessMove>();
@@ -212,30 +187,25 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * Sets this piece's board location to _location. NOTE: Doe's NOT change hasMoved
-	 * 
-	 * @param _location
+	 * Establece la ubicación de esta tabla de piezas en la ubicación.
 	 */
 	public void setLocation(Point _location) {
 		location.setLocation(_location);
 	}
 
 	/**
-	 * @return Point representing the board location of this object
+	 * @return Point representando la ubicación del tablero de este objeto
 	 */
 	public Point getLocation() {
 		return location;
 	}
 
 	/**
-	 * Renders this piece to the current openGL context. The drawX and
-	 * drawY are provided by the board, while the model is retrieved from 
-	 * the AssetLoader class. The model used is just the name of the piece
-	 * (ie getType())
+	 * Representa esta pieza al contexto actual de openGL. El drawX y
+         * drawY son proporcionados por el tablero, mientras que el modelo se recupera de
+         * La clase AssetLoader. El modelo utilizado es solo el nombre de la pieza.
+         * (es decir, getType ())
 	 * 
-	 * @param gl
-	 * @param drawX
-	 * @param drawZ
 	 */
 	public void render(GL2 gl) {
 		AssetLoader.getInstance().bindTexture(gl, player.getColorTexture());
@@ -247,9 +217,9 @@ public abstract class ChessPiece implements Animatable {
 	}
 	
 	/**
-	 * So that this piece can be animatable, it must overload this method.
-	 * Two fields can be animated in the class, drawLocationX, and drawLocationY
-	 * which are the positions this piece will be rendered on the screen.
+	 *Para que esta pieza pueda ser animable, debe sobrecargar este método.
+         * Se pueden animar dos campos en la clase, drawLocationX y drawLocationY
+         * ¿Cuáles son las posiciones que esta pieza se representará en la pantalla.
 	 * 
 	 */
 	@Override

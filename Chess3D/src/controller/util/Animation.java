@@ -1,10 +1,10 @@
 package controller.util;
 
 /**
- * Defines a basic linear interpolation animation, which is updated
- * by a delta_t in the gameloop. This class works by calling
- * the setValue() method of the Animatable object passed in
- *
+* Define una animación básica de interpolación lineal, que se actualiza.
+  * por un delta_t en el gameloop. Esta clase trabaja llamando
+  * el método setValue () del objeto Animatable pasado en
+  *
  */
 public class Animation implements Comparable<Animation> {
 
@@ -17,14 +17,14 @@ public class Animation implements Comparable<Animation> {
 	private float valueStep;
 	
 	/**
-	 * Constructs an Animation object that will continually set the value
-	 * of the object passed in.
+	* Construye un objeto de animación que establecerá continuamente el valor
+        * del objeto pasado.
 	 * 
-	 * @param _object Object on which the animation is being performed on
-	 * @param _name The name of the field in the object that is being updated
-	 * @param _startVal The starting value of the object's field
-	 * @param _endVal The ending value of the object's field
-	 * @param _time The time of the animation
+	 * @param _object Objeto en el que se realiza la animación
+         * @param _name El nombre del campo en el objeto que se está actualizando.
+         * @param _startVal El valor inicial del campo del objeto
+         * @param _endVal El valor final del campo del objeto
+         * @param _time El tiempo de la animación.
 	 */
 	public Animation(Animatable _object, String _fieledName, float _startVal, float _endVal, float _time) {
 		object = _object;
@@ -38,24 +38,24 @@ public class Animation implements Comparable<Animation> {
 	}
 	
 	/**
-	 * Steps this animation by _deltaTime, which will result in the object's
-	 * value being updated by +valueStep
-	 * 
-	 * @param _deltaTime The time step
-	 * @return true if the animation has finished, false otherwise
+	* Pasa esta animación por _deltaTime, lo que resultará en el objeto
+        * valor siendo actualizado por + valueStep
+        *
+	 * @param _deltaTime El paso del tiempo
+       * @return true si la animación ha finalizado, false en caso contrario
 	 */
 	public boolean stepAnimation(float _deltaTime) {
-		//update value
+		// actualizar valor
 		value += valueStep * _deltaTime;
 		
-		//determine if the animation has passed the endValue
+		//Determinar si la animación ha pasado el valor final.
 		float val_sign = Math.signum(valueStep);
 		if (value * val_sign >= endValue * val_sign) {
 			object.setValue(fieldName, endValue);
 			return true;
 		}
 		
-		//set the field of the object to value
+		//establecer el campo del objeto en valor
 		object.setValue(fieldName, value);
 		return false;
 	}
@@ -72,10 +72,8 @@ public class Animation implements Comparable<Animation> {
 	
 
 	/**
-	 * Interface that must be implemented by any object 
-	 * that wants to be animated.
-	 * 
-	 * @author Nicholas
+	 * Interfaz que debe ser implementada por cualquier objeto.
+         * Que quiere ser animado.
 	 *
 	 */
 	public interface Animatable {

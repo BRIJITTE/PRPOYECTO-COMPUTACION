@@ -8,11 +8,11 @@ import java.io.IOException;
 import javax.media.opengl.GL2;
 
 /**
- * Shader class that represents an opengl shader, ie a
- * vertex and fragment shader.
- * 
- * Currently this is not used
- * 
+*Clase de sombreado que representa un sombreador opengl, es decir, un
+  * Vértice y fragmento de sombreado.
+  *
+  * Actualmente esto no se usa.
+  * https://www.coding-daddy.xyz/node/16
  */
 public class Shader {
 
@@ -28,28 +28,28 @@ public class Shader {
 		vertexShader = gl.glCreateShader(GL2.GL_VERTEX_SHADER);
 		fragmentShader = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
 		
-		//Start reading vertex code
+		// Empieza a leer el código del vértice
 		BufferedReader brv = new BufferedReader(new FileReader(vs));
 		String src = "";
 		String line;
 		while ((line = brv.readLine()) != null) 
 		  src += line + "\n";
-		//End reading vertex code
+		
 		
 		gl.glShaderSource(vertexShader, 1, new String[] { src }, null);
 		gl.glCompileShader(vertexShader);
 
-		//Start reading fragment code
+		//Empieza a leer código de fragmento
 		BufferedReader brf = new BufferedReader(new FileReader(fs));
 		src = "";
 		while ((line = brf.readLine()) != null) 
 		  src += line + "\n";	
-		//End reading fragment code
+		
 		
 		gl.glShaderSource(fragmentShader, 1, new String[] { src }, null);
 		gl.glCompileShader(fragmentShader);
 		
-		//create shader program
+		//crear programa de sombreado
 		shaderprogram = gl.glCreateProgram();
 		gl.glAttachShader(shaderprogram, vertexShader);
 		gl.glAttachShader(shaderprogram, fragmentShader);

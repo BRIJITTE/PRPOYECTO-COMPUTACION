@@ -13,12 +13,10 @@ import view.loaders.AssetLoader;
 import controller.GameLoop;
 
 /**
- * The Render class implements the functionality of a GLEventListener
- * which defines the methods that are called by the underlying GLCanvas.
- * Upon create of the GLCanvas, the GLCanvas calls init(), reshape(), then 
- * display(), which are each defined here. Any calls to repaint window, will
- * eventually lead to a display() call defined here
- * 
+ * La clase Render implementa la funcionalidad de un GLEventListener
+  * que define los métodos que son llamados por los GLCanvas subyacentes.
+ Cualquier llamada a la ventana de repintado, conducirá a una llamada de pantalla () definida aquí
+  *
  */
 public class Renderer implements GLEventListener {
 
@@ -44,22 +42,22 @@ public class Renderer implements GLEventListener {
 	}
 	
 	/**
-	 * Called when the window needs to get repainted. All the actual 
-	 * drawing occurs in this method.
+	 * Llamado cuando la ventana necesita ser repintada. 
+* El dibujo se produce en este método.
 	 * 
 	 */
 	@Override
 	public void display(GLAutoDrawable gLDrawable) {
 		final GL2 gl = gLDrawable.getGL().getGL2();
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT); //clear buffers
-        gl.glMatrixMode(GL2.GL_MODELVIEW); //load modelview matrix
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT); 
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();	
         
         gl.glScalef(SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
         camera.lookat();
         gl.glGetFloatv(GL2.GL_MODELVIEW_MATRIX, modelviewMatrix, 0);
         
-        //render the current board
+        // renderizar el tablero actual
         gameController.getBoard().render(gl, selectedPiece);
         
         gl.glFlush();
@@ -67,14 +65,13 @@ public class Renderer implements GLEventListener {
 
 	@Override
 	public void dispose(GLAutoDrawable arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	/**
-	 * Called when the opengl context is first set up, this method
-	 * sets up all the different states, and also loads the models/textures
-	 * in the 'assets' folder, using calls to AssetLoader
+	 * este método configura todos los diferentes estados, y también carga los modelos / texturas
+* en la carpeta 'elementos'
 	 * 
 	 */
 	@Override
@@ -82,7 +79,7 @@ public class Renderer implements GLEventListener {
 		System.out.println("STARTED INIT");
         GL2 gl = gLDrawable.getGL().getGL2();
         
-        //enable lighting
+        //habilitar la iluminación
         gl.glEnable(GL2.GL_LIGHTING);
         gl.glEnable(GL2.GL_LIGHT0);
         float[] lp = { 0.25f, 1.0f, 0.25f, 1.0f };
@@ -92,22 +89,22 @@ public class Renderer implements GLEventListener {
         gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, ms, 0);
         gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SHININESS, msh, 0);
         
-        //enable multisampling
+        
         gl.glEnable(GL2.GL_MULTISAMPLE);
         
-        gl.glEnable(GL2.GL_CULL_FACE); //Enable backface culling
-        gl.glClearColor(.5f, .5f, .5f, 1.0f); //Background
-        gl.glClearDepth(1.0f); // Depth Buffer Setup
-        gl.glEnable(GL2.GL_DEPTH_TEST);  // Enables Depth Testing
+        gl.glEnable(GL2.GL_CULL_FACE);
+        gl.glClearColor(.5f, .5f, .5f, 1.0f); 
+        gl.glClearDepth(1.0f); 
+        gl.glEnable(GL2.GL_DEPTH_TEST);  
         gl.glDepthFunc(GL2.GL_LEQUAL);
-        gl.setSwapInterval(1);// enable v-synch @ 60fps
+        gl.setSwapInterval(1)
         
         gl.glEnable(GL2.GL_NORMALIZE);
         
         gl.glEnable(GL2.GL_BLEND);
         gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
         
-        //try extra hard...
+        
         gl.glEnable(GL2.GL_POLYGON_SMOOTH);
         gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT, GL2.GL_NICEST); 
         
@@ -117,11 +114,7 @@ public class Renderer implements GLEventListener {
         gl.glEnableClientState(GL2.GL_NORMAL_ARRAY);
         gl.glEnableClientState(GL2.GL_TEXTURE_COORD_ARRAY);
        
-        /* I did not create the chess piece models for this chess game, I downloaded them
-         * from : 
-         * http://www.turbosquid.com/3d-models/chess-set-3ds-free/654392
-         * 
-        */
+       
         
         try {
         	AssetLoader.getInstance().loadChessTextures(gl);

@@ -3,41 +3,41 @@ package model;
 import java.awt.Point;
 
 /**
- * Basic data object for holding a possible chess move. A chess
- * move is made up of 2 pieces of data, the piece that is moving, 
- * and the location the piece will move to
- *
- */
+  * Objeto de datos básicos para mantener un posible movimiento de ajedrez. Un ajedrez
+  * movimiento se compone de 2 piezas de datos, la pieza que se está moviendo,
+  * y la ubicación a la que se moverá la pieza.
+  **/
+
 public class ChessMove {
 
 	/**
-	 * Original location
+	 * Original locacion
 	 */
 	private Point originalLocation;
 	
 	/**
-	 * If this piece had moved yet
+	 *Si esta pieza se hubiera movido aún.
 	 */
 	private boolean hadMoved;
 	
 	/**
-	 * Location piece may move
+	 * La pieza de ubicación puede moverse
 	 */
 	private Point moveLocation;
 	
 	/**
-	 * Piece that is moving
+	 * Pieza que se esta moviendo
 	 */
 	private ChessPiece piece;
 	
 	/**
-	 * Piece that may have been captured by the move, can be null
+	 * Pieza que puede haber sido capturada por el movimiento, puede ser nula.
 	 */
 	private ChessPiece capturedPiece;
 	
 	/**
-	 * @param _moveLocation The location being moved to
-	 * @param _piece The piece being moved
+	 *@param _moveLocation La ubicación que se está moviendo a
+         * @param _piece La pieza que se está moviendo.
 	 */
 	public ChessMove(Point _moveLocation, ChessPiece _piece) {
 		originalLocation = new Point(_piece.getLocation());
@@ -53,11 +53,11 @@ public class ChessMove {
 	}
 	
 	/**
-	 * Executes the move if it has not been done yet. Calling this
-	 * method assumes the move has been checked as valid, otherwise an
-	 * exception will be thrown. After this move has been completed, 
-	 * caputedPiece will be set with the piece that was originally on the tile
-	 */
+* Ejecuta el movimiento si aún no se ha hecho. Llamando a esto
+* El método supone que el movimiento ha sido verificado como válido, de lo contrario un
+* Se lanzará una excepción. Después de que este movimiento ha sido completado,
+* caputedPiece se establecerá con la pieza que estaba originalmente en el azulejo
+*/
 	public void executeMove(boolean checkValid) {
 		if (piece.getLocation().equals(moveLocation)) //we have already done the move...
 			return;
@@ -69,10 +69,8 @@ public class ChessMove {
 	}
 	
 	/**
-	 * Undoes the move if has not been undone yet. The piece
-	 * is moved back to its original position, and if there was
-	 * a piece there already, it is replaced
-	 * 
+	 * Deshace el movimiento si aún no se ha deshecho. La pieza se mueve de nuevo a su posición original, y si hubiera
+          * Una pieza allí ya, se sustituye.
 	 */
 	public void undoMove() {
 		if (piece.getLocation().equals(originalLocation)) //we have already undone

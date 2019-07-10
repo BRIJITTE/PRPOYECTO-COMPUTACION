@@ -16,10 +16,10 @@ public class LosersGameMode implements GameMode {
 
 	@Override
 	public Board initPieces(Player player1, Player player2) {
-		// Create a standard 8,8 board
+		// Crear un tablero estándar de 8,8.
 		RectangularBoard board = new RectangularBoard(this);
 
-		// if the direction is -1 set the pawns to row 6 otherwise set them to 1
+		// si la dirección es -1, coloca los peones en la fila 6, de lo contrario, ponlos en 1
 		int p1PawnLoc = player1.getDirection() == -1 ? 6 : 1;
 		int p2PawnLoc = player2.getDirection() == -1 ? 6 : 1;
 		for (int i = 0; i < 8; i++) {
@@ -27,8 +27,8 @@ public class LosersGameMode implements GameMode {
 			new Pawn(i, p2PawnLoc, board, player2);
 		}
 
-		// if the direction is -1 set the special pieces to row 7 otherwise set
-		// them to 0
+		// si la dirección es -1, establezca las piezas especiales en la fila 7 de lo contrario establezca
+         // ellos a 0
 		int p1pieceLoc = player1.getDirection() == -1 ? 7 : 0;
 		int p2pieceLoc = player2.getDirection() == -1 ? 7 : 0;
 		
@@ -61,7 +61,7 @@ public class LosersGameMode implements GameMode {
 
 	@Override
 	public void postMoveAction(final GameLoop gameController, ChessMove lastMove) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

@@ -7,29 +7,17 @@ import javax.media.opengl.GL2;
 import view.loaders.AssetLoader;
 
 /**
- * This class represents a 3d model, and is responsible for holding
- * a reference to an opengl buffer, and the name of the texture that should be bound before
- * rendering.
- * 
+* Esta clase representa un modelo 3d, y es responsable de mantener
+  * una referencia a un búfer de opengl y el nombre de la textura que se debe enlazar 
+  *
  */
 public class Model {
 
-	/**
-	 * Type of primitives that should be rendered ie. GL_TRIANGLES or GL_QUADS
-	 */
+	
 	private int type;
-	
-	/**
-	 * A reference to the opengl buffer stored on the GPU
-	 */
 	private int vboMesh;
-	
-	/**
-	 * Holds the data for this buffer, if it has not yet been sent to the GPU
-	 */
 	private FloatBuffer buffer;
 	private int size;
-	
 	private String texture;
 	
 	public Model(GL2 gl, int _type, FloatBuffer _buffer, int _size, String textureName) {
@@ -37,18 +25,14 @@ public class Model {
 		texture = textureName;
 		size = _size;
 		vboMesh = -1;
-		if (gl == null) //if their is no opengl context yet...
-			buffer = _buffer; //save the buffer
+		if (gl == null)
+			buffer = _buffer;
 		else
-			createBuffer(gl, _buffer); //pass the data to the GPU
+			createBuffer(gl, _buffer);
 	}
 	
 	/**
-	 * Sends the data from the buffer to the gpu, creating an opengl
-	 * VBO
-	 * 
-	 * @param gl
-	 * @param buffer
+	 *Envía los datos del búfer
 	 */
 	private void createBuffer(GL2 gl, FloatBuffer buffer) {
 		if (vboMesh != -1)
@@ -58,30 +42,23 @@ public class Model {
 		gl.glGenBuffers(1, vbo, 0);
 		vboMesh = vbo[0];
 		
-		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboMesh); //Bind data to GPU
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboMesh); 
 		gl.glBufferData(GL2.GL_ARRAY_BUFFER, 8 * size * 4, buffer, GL2.GL_STATIC_DRAW);
 	}
 
-	/**
-	 * Binds this VBO, so that it can be rendered
-	 * 
-	 * @param gl
-	 */
+	
 	private void bindData(GL2 gl) {
-		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboMesh); //Bind this buffer
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboMesh); 
 		gl.glVertexPointer(3, GL2.GL_FLOAT, 8 * (Float.SIZE / 8), 0);
 		gl.glNormalPointer(GL2.GL_FLOAT, 8 * (Float.SIZE / 8), 3 * (Float.SIZE / 8));
 		gl.glTexCoordPointer(2, GL2.GL_FLOAT, 8 * (Float.SIZE / 8), 6 * (Float.SIZE / 8));
 	}
 	
 	/**
-	 * Renders the model. If the vbo has not yet been sent to the GPU it, will be
-	 * during the call. Also binds the texture (if specified) associated with this model
-	 * 
-	 * @param gl
+	 * Representa el modelo. 
 	 */
 	public void render(GL2 gl) {
-		if (vboMesh == -1) { //if it has not yet been sent to the gpu...
+		if (vboMesh == -1) { 
 			createBuffer(gl, buffer);
 			buffer = null;
 		}

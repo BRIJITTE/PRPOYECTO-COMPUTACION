@@ -9,9 +9,8 @@ import model.board.Board;
 import controller.Player;
 
 /**
- * Represents a Pawn. Pawn moving positions are taken
- * directly from the Board object which is responsible
- * for providing the moving directions of a pawn
+ * Representa un peón.
+ *
  */
 public class Pawn extends ChessPiece {
 
@@ -21,9 +20,7 @@ public class Pawn extends ChessPiece {
 	}
 
 	/**
-	 * Returns the possible moves this pawn can move. 
-	 * NOTE: the class that inherits from board is responsible
-	 * for checking to see if the pawn has moved. 
+	 * Devuelve los posibles movimientos que este peón puede mover.
 	 */
 	@Override
 	public ArrayList<ChessMove> getPossibleMoves() {
@@ -38,7 +35,7 @@ public class Pawn extends ChessPiece {
 		}
 		
 		for (Point loc : board.getPawnAttacks(location.x, location.y, this)) {
-			//cycke throught the attack locations, should just be 2
+			//Ciclo a través de las ubicaciones de ataque, debe ser sólo 2
 			ChessMove move = new ChessMove(loc, this);
 			if (board.hasEnemyPiece(loc, player))
 				moves.add(move);

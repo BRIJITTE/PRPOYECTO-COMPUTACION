@@ -9,46 +9,46 @@ import model.ChessPiece;
 import model.pieces.King;
 
 /**
- * Player class responsible for holding it's own chess pieces
- * and the general direction that the pawns travel. The player also holds
- * a reference to the opposing player for easy access.
- * 
- *
- *
- */
+  * Clase de jugador responsable de mantener sus propias piezas de ajedrez.
+  * y la dirección general en que viajan los peones. El jugador también tiene
+  * Una referencia al jugador contrario para facilitar el acceso.
+  * http://forum.jogamp.org/Loading-and-drawing-obj-models-td2708428.html
+  *
+  */
+
 public class Player {
 
 	/**
-	 * The way the camera should face for this player
+	 * La forma en que la cámara debe enfrentarse para este jugador.
 	*/
 	private float cameraDirection;
 	
 	/**
-	 * Represent the y direction this player is moving (ie on Standard 1 or -1)
+	 * Representa la dirección y en la que se mueve este jugador (es decir, en el Estándar 1 o -1)
 	 */
 	private int direction;
 	
 	private String playerName;
 	
 	/**
-	 * List of all piece owned by the player (includes captured pieces)
+	 * Lista de todas las piezas propiedad del jugador (incluye piezas capturadas)
 	 */
 	private ArrayList<ChessPiece> chessPieces;
 	
 	/**
-	 * List of all pieces that have been captured by this player
+	 * Lista de todas las piezas que han sido capturadas por este jugador
 	 */
 	private ArrayList<ChessPiece> capturedPieces;
 	
 	/**
-	 * Reference to the King for easy access
+	 * Referencia al rey para facilitar el acceso
 	 */
 	private King king;
 	
 	private int winCount;
 	
 	/**
-	 * The opponent player
+	 *El oponente jugador
 	 */
 	private Player otherPlayer;
 	
@@ -71,10 +71,8 @@ public class Player {
 	}
 
 	/**
-	 * Adds the piece to player, if it is a king store
-	 * it separately as well to provide easy access
-	 * 
-	 * @param chessPiece
+	 * Agrega la pieza al jugador, si es una tienda rey.
+         * También por separado para facilitar el acceso.
 	 */
 	public void addPiece(ChessPiece chessPiece) {
 		if (chessPiece.getType().equals("King"))

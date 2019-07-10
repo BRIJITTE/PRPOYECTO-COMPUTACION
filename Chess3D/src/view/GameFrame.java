@@ -9,12 +9,11 @@ import controller.GameLoop;
 import controller.InputHandler;
 
 /**
- * Define a frame for the chess game. This class
- * pieces together all the parts that are needed to 
- * make a chess game start, such as the canvas, renderer,
- * input manager, and gameloop. To actually begin the game
- * you must call, getGameController().setupNewGame() with
- * the game mode you wish to play
+ * Define un marco para el juego de ajedrez. Esta clase
+  * Reúne todas las partes que se necesitan para
+  * iniciar un juego de ajedrez, como el lienzo, el renderizador,
+  * Gestor de entrada, y gameloop. Para comenzar realmente el juego.
+ *
  */
 public class GameFrame extends JFrame {
 
@@ -32,9 +31,8 @@ public class GameFrame extends JFrame {
     	capabilities.setSampleBuffers(true);
     	capabilities.setNumSamples(4);
     	capabilities.setDepthBits(24);
-    	//end opengl setup
     	
-    	//create opengl view
+		
     	canvas = new GLCanvas(capabilities);
     	
     	setTitle("Chess!");
@@ -45,7 +43,7 @@ public class GameFrame extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//create gameloop
+		//crear gameloop
     	gameController = new GameLoop(canvas, this);
     	Renderer renderer = new Renderer(gameController);
     	canvas.addGLEventListener(renderer);
